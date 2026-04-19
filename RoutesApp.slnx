@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="routesapp.client/routesapp.client.esproj">
+    <Build />
+    <Deploy />
+  </Project>
+  <Project Path="RoutesApp.Server/RoutesApp.Server.csproj" />
+</Solution>

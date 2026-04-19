@@ -1,0 +1,248 @@
+/* ── LOGIN / REGISTER PAGES ── */
+.rp-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+.rp-left {
+    width: 45%;
+    background: var(--deep);
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.rp-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--sand);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+}
+
+    .rp-logo span {
+        color: var(--accent);
+    }
+
+.rp-left-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 3rem 0;
+}
+
+.rp-left-eyebrow {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--earth);
+    margin-bottom: 1rem;
+}
+
+.rp-left h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-weight: 700;
+    color: var(--sand);
+    line-height: 1.1;
+    margin-bottom: 1rem;
+}
+
+    .rp-left h2 em {
+        font-style: italic;
+        color: var(--accent);
+    }
+
+.rp-left p {
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: rgba(245, 237, 224, 0.6);
+    line-height: 1.7;
+}
+
+.rp-left-footer {
+    font-size: 0.8rem;
+    color: rgba(196, 168, 130, 0.5);
+}
+
+/* RIGHT */
+.rp-right {
+    width: 55%;
+    background: var(--sand);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2rem;
+}
+
+.rp-form-box {
+    width: 100%;
+    max-width: 420px;
+}
+
+.rp-form-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--deep);
+    margin-bottom: 0.5rem;
+}
+
+.rp-form-sub {
+    font-size: 0.9rem;
+    color: #6b5a47;
+    margin-bottom: 2rem;
+}
+
+    .rp-form-sub a {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+/* FIELDS */
+.rp-field {
+    margin-bottom: 1.25rem;
+}
+
+.rp-label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--deep);
+    margin-bottom: 0.4rem;
+    letter-spacing: 0.03em;
+}
+
+.rp-input-wrap {
+    position: relative;
+}
+
+.rp-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: var(--mist);
+    border: 1.5px solid rgba(196, 168, 130, 0.4);
+    border-radius: 3px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    color: var(--deep);
+    transition: border-color 0.2s;
+    outline: none;
+}
+
+    .rp-input:focus {
+        border-color: var(--accent);
+    }
+
+    .rp-input.is-error {
+        border-color: #e05c2a;
+    }
+
+.rp-input-icon {
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0;
+    line-height: 1;
+}
+
+.rp-error {
+    font-size: 0.78rem;
+    color: #e05c2a;
+    margin-top: 0.3rem;
+}
+
+/* PASSWORD STRENGTH */
+.rp-strength-bar {
+    height: 3px;
+    background: rgba(196, 168, 130, 0.3);
+    border-radius: 2px;
+    margin-top: 0.4rem;
+    overflow: hidden;
+}
+
+.rp-strength-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.3s, background 0.3s;
+}
+
+.rp-strength-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-top: 0.25rem;
+}
+
+/* SUBMIT BUTTON */
+.btn-submit {
+    width: 100%;
+    padding: 0.85rem;
+    background: var(--deep);
+    color: var(--sand);
+    border: none;
+    border-radius: 3px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    transition: background 0.2s, transform 0.2s;
+}
+
+    .btn-submit:hover {
+        background: var(--accent);
+        transform: translateY(-2px);
+    }
+
+/* SUCCESS */
+.rp-success {
+    text-align: center;
+    padding: 2rem 0;
+}
+
+.rp-success-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.rp-success h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--deep);
+    margin-bottom: 0.75rem;
+}
+
+.rp-success p {
+    font-size: 0.9rem;
+    color: #6b5a47;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .rp-wrapper {
+        flex-direction: column;
+    }
+
+    .rp-left,
+    .rp-right {
+        width: 100%;
+    }
+
+    .rp-left {
+        min-height: 40vh;
+    }
+}

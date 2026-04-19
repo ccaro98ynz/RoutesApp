@@ -1,0 +1,436 @@
+
+    :root {
+        --sand: #f5ede0;
+        --earth: #c4a882;
+        --deep: #1a1209;
+        --accent: #d4622a;
+        --moss: #3d5a3e;
+        --mist: #e8ddd0;
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        background: var(--sand);
+        font-family: 'DM Sans', sans-serif;
+        color: var(--deep);
+        overflow-x: hidden;
+    }
+    /* ── NAVBAR ── */
+    .wp-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.2rem 3rem;
+        background: rgba(245, 237, 224, 0.85);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(196, 168, 130, 0.3);
+    }
+
+    .wp-nav-logo {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--deep);
+        letter-spacing: -0.02em;
+    }
+
+        .wp-nav-logo span {
+            color: var(--accent);
+        }
+
+    .wp-nav-actions {
+        display: flex;
+        gap: 0.75rem;
+        align-items: center;
+    }
+
+    .btn-login {
+        background: transparent;
+        border: 1.5px solid var(--earth);
+        color: var(--deep);
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.85rem;
+        font-weight: 500;
+        padding: 0.5rem 1.4rem;
+        border-radius: 2px;
+        cursor: pointer;
+        transition: all 0.2s;
+        letter-spacing: 0.03em;
+    }
+
+        .btn-login:hover {
+            background: var(--earth);
+            color: white;
+        }
+
+    .btn-register {
+        background: var(--accent);
+        border: 1.5px solid var(--accent);
+        color: white;
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.85rem;
+        font-weight: 500;
+        padding: 0.5rem 1.4rem;
+        border-radius: 2px;
+        cursor: pointer;
+        transition: all 0.2s;
+        letter-spacing: 0.03em;
+    }
+
+        .btn-register:hover {
+            background: #b8501f;
+            border-color: #b8501f;
+        }
+    /* ── HERO ── */
+    .wp-hero {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 8rem 2rem 4rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .wp-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 70% 50% at 20% 60%, rgba(212, 98, 42, 0.08) 0%, transparent 60%), radial-gradient(ellipse 60% 40% at 80% 30%, rgba(61, 90, 62, 0.07) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+    .wp-hero-eyebrow {
+        font-size: 0.75rem;
+        font-weight: 500;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 1.5rem;
+    }
+
+    .wp-hero h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(3rem, 8vw, 6.5rem);
+        font-weight: 700;
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+        color: var(--deep);
+        max-width: 900px;
+        margin-bottom: 1.5rem;
+    }
+
+        .wp-hero h1 em {
+            font-style: italic;
+            color: var(--accent);
+        }
+
+    .wp-hero p {
+        font-size: 1.1rem;
+        font-weight: 300;
+        color: #6b5a47;
+        max-width: 500px;
+        line-height: 1.7;
+        margin-bottom: 2.5rem;
+    }
+
+    .btn-cta {
+        background: var(--deep);
+        color: var(--sand);
+        border: none;
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.9rem;
+        font-weight: 500;
+        padding: 1rem 2.5rem;
+        border-radius: 2px;
+        cursor: pointer;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        transition: background 0.2s, transform 0.2s;
+    }
+
+        .btn-cta:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+        }
+
+    .wp-hero-scroll {
+        position: absolute;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.4rem;
+        color: var(--earth);
+        font-size: 0.7rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+        0%, 100% {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        50% {
+            transform: translateX(-50%) translateY(6px);
+        }
+    }
+    /* ── HOW IT WORKS ── */
+    .wp-section {
+        padding: 6rem 2rem;
+    }
+
+    .wp-section-label {
+        font-size: 0.7rem;
+        font-weight: 500;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--earth);
+        margin-bottom: 0.75rem;
+    }
+
+    .wp-section-title {
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(2rem, 4vw, 3.2rem);
+        font-weight: 700;
+        line-height: 1.1;
+        color: var(--deep);
+        margin-bottom: 1rem;
+    }
+
+    .wp-section-sub {
+        font-size: 1rem;
+        font-weight: 300;
+        color: #6b5a47;
+        max-width: 480px;
+        line-height: 1.7;
+    }
+
+    .wp-steps {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        margin-top: 3rem;
+    }
+
+    .wp-step {
+        padding: 2rem;
+        background: var(--mist);
+        border: 1px solid rgba(196, 168, 130, 0.3);
+        border-radius: 4px;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+        .wp-step:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(26, 18, 9, 0.08);
+        }
+
+    .wp-step-num {
+        font-family: 'Playfair Display', serif;
+        font-size: 3rem;
+        font-weight: 700;
+        color: rgba(196, 168, 130, 0.4);
+        line-height: 1;
+        margin-bottom: 1rem;
+    }
+
+    .wp-step h3 {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--deep);
+        margin-bottom: 0.5rem;
+    }
+
+    .wp-step p {
+        font-size: 0.9rem;
+        font-weight: 300;
+        color: #6b5a47;
+        line-height: 1.6;
+    }
+    /* ── DESTINATIONS ── */
+    .wp-destinations {
+        background: var(--deep);
+        padding: 6rem 2rem;
+    }
+
+        .wp-destinations .wp-section-label {
+            color: var(--earth);
+        }
+
+        .wp-destinations .wp-section-title {
+            color: var(--sand);
+        }
+
+        .wp-destinations .wp-section-sub {
+            color: rgba(245, 237, 224, 0.6);
+        }
+
+    .wp-dest-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        margin-top: 3rem;
+    }
+
+    .wp-dest-card {
+        background: rgba(245, 237, 224, 0.05);
+        border: 1px solid rgba(196, 168, 130, 0.2);
+        border-radius: 4px;
+        padding: 2rem;
+        display: flex;
+        align-items: flex-start;
+        gap: 1.25rem;
+        cursor: pointer;
+        transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    }
+
+        .wp-dest-card:hover {
+            background: rgba(212, 98, 42, 0.1);
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+    .wp-dest-icon {
+        font-size: 2rem;
+        flex-shrink: 0;
+    }
+
+    .wp-dest-tag {
+        display: inline-block;
+        font-size: 0.65rem;
+        font-weight: 500;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 0.4rem;
+    }
+
+    .wp-dest-card h3 {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.1rem;
+        color: var(--sand);
+        margin-bottom: 0.4rem;
+    }
+
+    .wp-dest-card p {
+        font-size: 0.85rem;
+        font-weight: 300;
+        color: rgba(245, 237, 224, 0.55);
+        line-height: 1.5;
+    }
+    /* ── CTA SECTION ── */
+    .wp-cta-section {
+        padding: 7rem 2rem;
+        text-align: center;
+        background: var(--sand);
+        position: relative;
+    }
+
+        .wp-cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            height: 80px;
+            background: var(--earth);
+            opacity: 0.4;
+        }
+
+        .wp-cta-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 700;
+            color: var(--deep);
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+            .wp-cta-section h2 em {
+                font-style: italic;
+                color: var(--accent);
+            }
+
+        .wp-cta-section p {
+            font-size: 1rem;
+            font-weight: 300;
+            color: #6b5a47;
+            margin-bottom: 2rem;
+        }
+    /* ── HOME BUTTON ── */
+    .wp-home-btn {
+        position: fixed;
+        bottom: 2rem;
+        left: 2rem;
+        z-index: 200;
+        width: 44px;
+        height: 44px;
+        background: var(--deep);
+        color: var(--sand);
+        border: none;
+        border-radius: 3px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 1.1rem;
+        box-shadow: 0 4px 16px rgba(26,18,9,0.25);
+        transition: opacity 0.3s, transform 0.3s, background 0.2s;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(12px);
+    }
+
+        .wp-home-btn.visible {
+            opacity: 1;
+            pointer-events: all;
+            transform: translateY(0);
+        }
+
+        .wp-home-btn:hover {
+            background: var(--accent);
+        }
+    /* ── FOOTER ── */
+    .wp-footer {
+        background: var(--deep);
+        color: var(--earth);
+        text-align: center;
+        padding: 2rem;
+        font-size: 0.8rem;
+        letter-spacing: 0.05em;
+        font-weight: 300;
+    }
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+        .wp-nav {
+            padding: 1rem 1.5rem;
+        }
+
+        .wp-steps {
+            grid-template-columns: 1fr;
+        }
+
+        .wp-dest-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+

@@ -1,0 +1,6 @@
+@RoutesApp.Server_HostAddress = http://localhost:5243
+
+GET {{RoutesApp.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

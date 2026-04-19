@@ -1,0 +1,235 @@
+/* ── LOGIN PAGE ── */
+.lp-wrapper {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: row-reverse;
+}
+
+.lp-right {
+    width: 45%;
+    background: var(--deep);
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.lp-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--sand);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+}
+
+    .lp-logo span {
+        color: var(--accent);
+    }
+
+.lp-right-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 3rem 0;
+}
+
+.lp-right-eyebrow {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--earth);
+    margin-bottom: 1rem;
+}
+
+.lp-right h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-weight: 700;
+    color: var(--sand);
+    line-height: 1.1;
+    margin-bottom: 1rem;
+}
+
+    .lp-right h2 em {
+        font-style: italic;
+        color: var(--accent);
+    }
+
+.lp-right p {
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: rgba(245, 237, 224, 0.6);
+    line-height: 1.7;
+}
+
+.lp-right-footer {
+    font-size: 0.8rem;
+    color: rgba(196, 168, 130, 0.5);
+}
+
+/* LEFT form */
+.lp-left {
+    width: 55%;
+    background: var(--sand);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2rem;
+}
+
+.lp-form-box {
+    width: 100%;
+    max-width: 420px;
+}
+
+.lp-form-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--deep);
+    margin-bottom: 0.5rem;
+}
+
+.lp-form-sub {
+    font-size: 0.9rem;
+    color: #6b5a47;
+    margin-bottom: 2rem;
+}
+
+    .lp-form-sub a {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+.lp-general-error {
+    background: rgba(224, 92, 42, 0.1);
+    border: 1px solid rgba(224, 92, 42, 0.3);
+    color: #e05c2a;
+    font-size: 0.85rem;
+    padding: 0.75rem 1rem;
+    border-radius: 3px;
+    margin-bottom: 1.25rem;
+}
+
+/* FIELDS */
+.lp-field {
+    margin-bottom: 1.25rem;
+}
+
+.lp-label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--deep);
+    margin-bottom: 0.4rem;
+    letter-spacing: 0.03em;
+}
+
+.lp-input-wrap {
+    position: relative;
+}
+
+.lp-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: var(--mist);
+    border: 1.5px solid rgba(196, 168, 130, 0.4);
+    border-radius: 3px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    color: var(--deep);
+    transition: border-color 0.2s;
+    outline: none;
+}
+
+    .lp-input:focus {
+        border-color: var(--accent);
+    }
+
+    .lp-input.is-error {
+        border-color: #e05c2a;
+    }
+
+.lp-input-icon {
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0;
+    line-height: 1;
+}
+
+.lp-error {
+    font-size: 0.78rem;
+    color: #e05c2a;
+    margin-top: 0.3rem;
+}
+
+.lp-forgot {
+    display: inline-block;
+    margin-top: 0.4rem;
+    font-size: 0.78rem;
+    color: var(--earth);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+    .lp-forgot:hover {
+        color: var(--accent);
+    }
+
+/* SPINNER */
+.lp-spinner {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(245, 237, 224, 0.3);
+    border-top-color: var(--sand);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.lp-register-cta {
+    margin-top: 1.5rem;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #6b5a47;
+}
+
+    .lp-register-cta a {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .lp-wrapper {
+        flex-direction: column;
+    }
+
+    .lp-left,
+    .lp-right {
+        width: 100%;
+    }
+
+    .lp-right {
+        min-height: 40vh;
+    }
+}

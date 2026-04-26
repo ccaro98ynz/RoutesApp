@@ -1,0 +1,10 @@
+﻿namespace RoutesApp.Server.Models.DTOS
+{
+    public class CustomerDTO
+    {
+        public string? Name { get; set; }
+        public string? last_name { get; set; }
+        public string? phone_number { get; set; }
+        public string? email { get; set; }
+    }
+}

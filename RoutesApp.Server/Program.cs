@@ -1,8 +1,13 @@
+using Microsoft.EntityFrameworkCore;
+using RoutesApp.Server.Models.RoutesApp;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddDbContext<RoutesAppContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("dbcs")));
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 

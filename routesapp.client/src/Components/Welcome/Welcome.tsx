@@ -47,8 +47,6 @@ const WelcomePage = () => {
     ];
     return (
         <>
-           
-
             {/* NAVBAR */}
             <nav>
                 <div className="wp-nav-logo">

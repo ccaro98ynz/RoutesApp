@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace RoutesApp.Server.Models.RoutesApp;
+namespace RoutesApp.Server.Models.CustomRoutes;
 
 public partial class Place
 {
     public int IdPlace { get; set; }
+
+    public string? IdExternal { get; set; }
 
     public decimal? Latitude { get; set; }
 
@@ -18,4 +20,6 @@ public partial class Place
     public string? PostalCode { get; set; }
 
     public string? CountryCode { get; set; }
+
+    public virtual ICollection<Visited> Visiteds { get; set; } = new List<Visited>();
 }

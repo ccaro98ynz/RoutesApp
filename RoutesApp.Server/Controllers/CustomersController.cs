@@ -16,7 +16,6 @@ public class CustomersController : Controller
     {
         _context = context;
     }
-
     //Registrar Nuevo Usuario
     [HttpPost("Register")]
     public async Task<IActionResult> PostCustomer(CustomerDTO customerDto)
@@ -46,13 +45,27 @@ public class CustomersController : Controller
             return StatusCode(500, $"An error occurred: {ex.Message}");
         }
     }
-    //Iniciar Sesión
-    [HttpGet("Login")]
-    public async Task<IActionResult> GetCustomer([FromQuery] string email, [FromQuery] string password)
+    // Iniciar Sesión
+    [HttpPost("Login")]                        
+    public async Task<IActionResult> Login([FromBody] LoginDTO loginDto)
     {
-        var customer = await _context.Customers.FirstOrDefaultAsync(c => c.Email == email);
-        if (customer == null) return BadRequest("Usuario no encontrado.");
-        if (!BCrypt.Net.BCrypt.Verify(password, System.Text.Encoding.UTF8.GetString(customer.Password))) return BadRequest("Contraseña incorrecta.");
-        return Ok(new { mensaje = "¡Inicio de sesión exitoso!", id = customer.IdCustomer });
+        if (loginDto == null || string.IsNullOrEmpty(loginDto.email) || string.IsNullOrEmpty(loginDto.password))
+            return BadRequest("Email y contraseña son requeridos.");
+
+        try
+        {
+            var customer = await _context.Customers.FirstOrDefaultAsync(c => c.Email == loginDto.email);
+            if (customer == null) return BadRequest("Usuario no encontrado.");
+
+            string storedHash = System.Text.Encoding.UTF8.GetString(customer.Password);
+            if (!BCrypt.Net.BCrypt.Verify(loginDto.password, storedHash))
+                return BadRequest("Contraseña incorrecta.");
+
+            return Ok(new { mensaje = "¡Inicio de sesión exitoso!", id = customer.IdCustomer, nombre = customer.Name });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"An error occurred: {ex.Message}");
+        }
     }
 }

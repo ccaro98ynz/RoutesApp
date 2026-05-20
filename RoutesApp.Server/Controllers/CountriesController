@@ -1,0 +1,48 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Net.Http;
+using System.Text.Json;
+using System.Threading.Tasks;
+
+namespace RutaLibre.Controllers
+{
+    [ApiController]
+    [Route("[controller]")]
+    public class CountriesController : ControllerBase
+    {
+        private readonly HttpClient _httpClient;
+
+        public CountriesController(HttpClient httpClient)
+        {
+            _httpClient = httpClient;
+        }
+
+        [HttpGet("search")]
+        public async Task<IActionResult> SearchCountries([FromQuery] string query)
+        {
+            if (string.IsNullOrWhiteSpace(query))
+                return BadRequest("El criterio de búsqueda no puede estar vacío.");
+
+            // El backend se encarga de llamar al servicio externo
+            string url = $"https://restcountries.com/v3.1/name/{Uri.EscapeDataString(query)}?fields=name,cca2,flags,latlng,capital,population,region,subregion";
+            
+            try
+            {
+                var response = await _httpClient.GetAsync(url);
+                
+                if (!response.IsSuccessStatusCode)
+                    return NotFound(new { message = "No se encontraron países con ese nombre." });
+
+                var jsonString = await response.Content.ReadAsStringAsync();
+                
+                // Usamos JsonDocument para reenviar el JSON tal cual, 
+                // o puedes mapearlo a un DTO aquí mismo si lo prefieres
+                using var jsonDoc = JsonDocument.Parse(jsonString);
+                return Ok(jsonDoc.RootElement.Clone());
+            }
+            catch (HttpRequestException)
+            {
+                return StatusCode(500, "Error de comunicación con el servicio geográfico externo.");
+            }
+        }
+    }
+}

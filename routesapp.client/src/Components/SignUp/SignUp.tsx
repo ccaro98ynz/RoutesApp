@@ -28,9 +28,6 @@ interface FieldError {
 }
 
 const SignUpPage = () => {
-    // Definimos el estado inicial en una constante para poder reutilizarlo al limpiar
-  
-
     const [form, setForm] = useState<RegisterForm>(initialFormState);
     const [errors, setErrors] = useState<FieldError>({});
     const [showPass, setShowPass] = useState(false);
@@ -256,13 +253,24 @@ const SignUpPage = () => {
                         </>
                     ) : (
                         <div className="rp-success">
-                            <div className="rp-success-icon">✅</div>
-                            {/* Nota: Como limpiamos el formulario arriba, si necesitas mostrar el nombre de la persona en la pantalla de éxito, puedes capturarlo en una variable local antes de limpiar o usar una respuesta del backend */}
-                            <h3>¡Bienvenido!</h3>
-                            <p>Tu cuenta ha sido creada. Ahora puedes explorar rutas personalizadas.</p>
-                            <button className="btn-submit" onClick={() => window.location.href = "/login"}>
-                                Ir a Iniciar sesión
-                            </button>
+                                <div className="rp-success-icon">✅</div>
+                                <h3>¡Cuenta creada!</h3>
+                                <p>Tu cuenta ha sido creada exitosamente. ¿Deseas iniciar sesión ahora?</p>
+
+                                <div style={{ display: "flex", gap: "1rem", justifyContent: "center", marginTop: "1rem" }}>
+                                    <button className="btn-submit" onClick={() => window.location.href = "/login"}>
+                                        Sí, iniciar sesión
+                                    </button>
+                                    <button
+                                        className="btn-submit"
+                                        style={{ background: "transparent", border: "2px solid currentColor", color: "inherit" }}
+                                        onClick={() => {
+                                            setSubmitted(false);  // vuelve al form vacío
+                                        }}
+                                    >
+                                        No, registrar otro
+                                    </button>
+                                </div>
                         </div>
                     )}
                 </div>

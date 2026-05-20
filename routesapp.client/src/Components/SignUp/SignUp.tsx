@@ -10,7 +10,14 @@ interface RegisterForm {
     password: string;
     confirm: string;
 }
-
+const initialFormState: RegisterForm = {
+    name: "",
+    last_name: "",
+    phone_number: "",
+    email: "",
+    password: "",
+    confirm: "",
+};
 interface FieldError {
     name?: string;
     last_name?: string;
@@ -21,14 +28,10 @@ interface FieldError {
 }
 
 const SignUpPage = () => {
-    const [form, setForm] = useState<RegisterForm>({
-        name: "",
-        last_name: "",
-        phone_number: "",
-        email: "",
-        password: "",
-        confirm: "",
-    });
+    // Definimos el estado inicial en una constante para poder reutilizarlo al limpiar
+  
+
+    const [form, setForm] = useState<RegisterForm>(initialFormState);
     const [errors, setErrors] = useState<FieldError>({});
     const [showPass, setShowPass] = useState(false);
     const [showConfirm, setShowConfirm] = useState(false);
@@ -56,22 +59,30 @@ const SignUpPage = () => {
         if (!validate()) return;
 
         try {
-            const response = await fetch("https://tu-api/api/Customer/add", {
+            const response = await fetch("https://localhost:7269/Customers/Register", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    Name: form.name,
+                    name: form.name,
                     last_name: form.last_name,
                     phone_number: form.phone_number,
                     email: form.email,
-                    password: form.password,
-                }),
+                    password: form.password
+                })
             });
-
             if (!response.ok) throw new Error("Error al registrar");
+
+            setShowPass(false);
+            setShowConfirm(false);
             setSubmitted(true);
+
+            setTimeout(() => setSubmitted(false), 5000);
         } catch {
             setErrors({ email: "Error al crear la cuenta. Intenta de nuevo." });
+        }
+        finally {
+            setForm(initialFormState);
+            setErrors({});
         }
     };
 
@@ -246,7 +257,8 @@ const SignUpPage = () => {
                     ) : (
                         <div className="rp-success">
                             <div className="rp-success-icon">✅</div>
-                            <h3>¡Bienvenido, {form.name}!</h3>
+                            {/* Nota: Como limpiamos el formulario arriba, si necesitas mostrar el nombre de la persona en la pantalla de éxito, puedes capturarlo en una variable local antes de limpiar o usar una respuesta del backend */}
+                            <h3>¡Bienvenido!</h3>
                             <p>Tu cuenta ha sido creada. Ahora puedes explorar rutas personalizadas.</p>
                             <button className="btn-submit" onClick={() => window.location.href = "/login"}>
                                 Ir a Iniciar sesión

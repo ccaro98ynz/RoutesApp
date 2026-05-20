@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.ComponentModel.DataAnnotations;
 namespace RoutesApp.Server.Models.CustomRoutes;
 
 public partial class Customer
 {
+    [Key]
     public int IdCustomer { get; set; }
 
     public string Name { get; set; } = null!;

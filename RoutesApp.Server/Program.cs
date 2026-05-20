@@ -10,7 +10,15 @@ builder.Services.AddDbContext<CustomRoutesContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("dbContext")));
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("PermitirReact", policy =>
+    {
+        policy.WithOrigins("https://localhost:53424", "http://localhost:53424") // Tu puerto de React
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
 var app = builder.Build();
 
 app.UseDefaultFiles();
@@ -23,6 +31,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("PermitirReact");
 
 app.UseAuthorization();
 

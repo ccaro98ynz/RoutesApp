@@ -2,9 +2,6 @@ import type { CountryImage } from "../types/planning.types";
 export async function fetchCountryImages(
     countryName: string
 ): Promise<CountryImage[]> {
-
-    console.log("Buscando imágenes de:", countryName);
-
     const searchUrl =
         `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(countryName)}&format=json&origin=*`;
     try {
@@ -62,11 +59,8 @@ export async function fetchCountryImages(
             });
         const imageInfos =
             await Promise.all(imageInfoPromises);
-        console.log("Imágenes encontradas:", imageInfos);
         return imageInfos.filter(Boolean) as CountryImage[];
-    } catch (error) {
-
-        console.error(error);
+    } catch {
         return [];
     }
 }

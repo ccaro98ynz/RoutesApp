@@ -1,0 +1,108 @@
+/* ─── DESKTOP: sidebar + columna derecha ───────────────────────── */
+.planner-layout {
+    display: grid;
+    grid-template-columns: 400px minmax(0, 1fr);
+    height: 100dvh;
+    overflow: hidden;
+    background: #f5ede0;
+    font-family: 'DM Sans', sans-serif;
+}
+
+.planning-main-v2 {
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) 220px;
+    gap: 14px;
+    padding: 14px;
+    height: 100dvh;
+    overflow: hidden;
+}
+
+.planning-map-wrapper {
+    min-height: 0;
+    height: 100%;
+}
+
+/* ─── GALERÍA ────────────────────────────────────────────────────── */
+.planning-gallery-section {
+    min-height: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+.planning-gallery-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    height: 100%;
+    border-radius: 14px;
+    border: 1px dashed rgba(140, 115, 85, 0.3);
+    color: #8c7355;
+    font-size: 0.88rem;
+    background: rgba(255, 255, 255, 0.4);
+}
+
+    .planning-gallery-empty span {
+        font-size: 2rem;
+        opacity: 0.5;
+    }
+
+    .planning-gallery-empty p {
+        margin: 0;
+        font-style: italic;
+    }
+
+/* ─── TABLET ────────────────────────────────────────────────────── */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .planner-layout {
+        grid-template-columns: 320px minmax(0, 1fr);
+    }
+}
+
+/* ─── MÓVIL: mapa → campos → galería ───────────────────────────── */
+@media (max-width: 768px) {
+    .planner-layout {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        min-height: 100dvh;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    /* 1. Mapa arriba */
+    .planning-main-v2 {
+        order: 1;
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        padding: 12px 12px 0;
+        gap: 12px;
+        overflow: visible;
+    }
+
+    .planning-map-wrapper {
+        height: 320px;
+        flex-shrink: 0;
+    }
+
+    /* 2. Campos en medio */
+    .planner-sidebar {
+        order: 2;
+        width: 100%;
+        height: auto;
+        overflow-y: visible;
+        box-shadow: none;
+        border-top: 1px solid rgba(196, 168, 130, 0.2);
+        padding: 1.5rem 1.25rem;
+    }
+
+    /* 3. Galería abajo */
+    .planning-gallery-section {
+        order: 3;
+        height: 260px;
+        flex-shrink: 0;
+        padding-bottom: 20px;
+    }
+}

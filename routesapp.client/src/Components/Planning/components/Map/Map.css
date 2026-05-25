@@ -3,11 +3,12 @@
 .planning-map-compact {
     position: relative;
     width: 100%;
-    height: 260px;
+    height: 100%;
+    min-height: 360px;
     overflow: hidden;
     border-radius: 18px;
-    background: #0e0c0b;
-    border: 1px solid rgba(255,255,255,.06);
+    background: rgba(15,15,100,.55);/*BorderColor*/
+    border: 1px solid rgb(0, 235, 50, 0.06);
 }
 
 /* MAP */
@@ -39,7 +40,7 @@
     align-items: center;
     gap: 12px;
     padding: 10px 14px;
-    background: rgba(15,15,15,.55);
+    background: #000f;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255,255,255,.08);
     border-radius: 14px;
@@ -50,7 +51,7 @@
     height: 30px;
     object-fit: cover;
     border-radius: 6px;
-    box-shadow: 0 4px 14px rgba(0,0,0,.35);
+    box-shadow: 0 4px 14px rgba(100,0,0,.35);
 }
 
 .planning-map-overlay__text {
@@ -62,7 +63,7 @@
     font-size: .68rem;
     text-transform: uppercase;
     letter-spacing: .12em;
-    color: rgba(255,255,255,.55);
+    color: rgba(255,255,255,.55);/*Color de letra flyer pais*/
 }
 
 .planning-map-overlay__name {
@@ -82,7 +83,7 @@
 .planning-map-overlay__pill {
     padding: 8px 12px;
     border-radius: 999px;
-    background: rgba(15,15,15,.55);
+    background: rgba(15,15,100,.55);
     border: 1px solid rgba(255,255,255,.08);
     backdrop-filter: blur(10px);
     font-size: .72rem;
@@ -101,7 +102,7 @@
     flex-direction: column;
     gap: 10px;
     z-index: 5;
-    color: rgba(255,255,255,.45);
+    color: rgba(100,255,255,.45);
 }
 
 .planning-map-empty__icon {
@@ -112,4 +113,19 @@
 .planning-map-empty__text {
     font-size: .88rem;
     letter-spacing: .03em;
+}
+.planning-map-compact {
+    height: 100%;
+    min-height: 360px;
+}
+
+.planning-map-overlay {
+    right: auto;
+    max-width: calc(100% - 36px);
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.planning-map-overlay__pills {
+    display: none;
 }

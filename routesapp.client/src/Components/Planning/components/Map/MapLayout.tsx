@@ -53,7 +53,7 @@ function MapLayout({
 }: PlanningMapProps) {
 
     return (
-        <div className="planning-map-container">
+        <div className="planning-map-compact">
             <MapContainer
                 center={defaultCenter}
                 zoom={4}
@@ -61,9 +61,7 @@ function MapLayout({
                 zoomControl={false}
                 attributionControl={false}
             >
-                <TileLayer
-                    url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-                />
+                <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                 <MapInvalidateSize />
                 <FlyToCountry
                     latlng={mapCenter}

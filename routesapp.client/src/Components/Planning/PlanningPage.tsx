@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef } from "react";
+import "./Planning.css";
 import SideBar from "./components/SideBar/SideBar";
 import MapLayout from "./components/Map/MapLayout.tsx";
 import GalleryCarousel from "./components/Gallery/GalleryCarousel";
 import { fetchCountryImages } from "./services/images.service";
 import type { CountryResult, CountryImage, TravelerKey } from "./types/planning.types";
-
+import { searchCountries } from "./services/countryInfo.service.ts";
 function PlanningPage() {
     const [query, setQuery] = useState("");
     const [suggestions, setSuggestions] = useState<CountryResult[]>([]);
@@ -14,13 +15,10 @@ function PlanningPage() {
     const [images, setImages] = useState<CountryImage[]>([]);
     const [loadingImages, setLoadingImages] = useState(false);
 
-    // Campos de Routes
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
     const [travelerType, setTravelerType] = useState<TravelerKey>("pareja");
     const [totalGuests, setTotalGuests] = useState(2);
-
-    // Control de generación
     const [generating, setGenerating] = useState(false);
     const [genError, setGenError] = useState("");
 
@@ -32,9 +30,8 @@ function PlanningPage() {
 
     useEffect(() => {
         const handler = (e: MouseEvent) => {
-            if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
+            if (searchRef.current && !searchRef.current.contains(e.target as Node))
                 setShowDd(false);
-            }
         };
         document.addEventListener("mousedown", handler);
         return () => document.removeEventListener("mousedown", handler);
@@ -45,16 +42,18 @@ function PlanningPage() {
             setSuggestions([]);
             return;
         }
-        if (debounceRef.current) clearTimeout(debounceRef.current);
+
+        if (debounceRef.current) {
+            clearTimeout(debounceRef.current);
+        }
+
         debounceRef.current = setTimeout(async () => {
             setLoadingSuggest(true);
+
             try {
-                const res = await fetch(
-                    `https://restcountries.com/v3.1/name/${encodeURIComponent(query)}?fields=name,cca2,flags,latlng,capital,population,region,subregion`
-                );
-                if (!res.ok) { setSuggestions([]); return; }
-                const data: CountryResult[] = await res.json();
-                setSuggestions(data.slice(0, 6));
+                const countries = await searchCountries(query);
+
+                setSuggestions(countries);
                 setShowDd(true);
             } catch {
                 setSuggestions([]);
@@ -88,11 +87,9 @@ function PlanningPage() {
         if (!selectedCountry) { setGenError("Selecciona un país primero."); return; }
         if (!startDate || !endDate) { setGenError("Elige las fechas del viaje."); return; }
         if (endDate <= startDate) { setGenError("La fecha de regreso debe ser posterior a la de salida."); return; }
-
         setGenError("");
         setGenerating(true);
         try {
-            // POST a tu backend con los campos de Routes
             // await createRoute({ selectedCountry, startDate, endDate, travelerType, totalGuests });
         } catch {
             setGenError("Error al generar el itinerario. Intenta de nuevo.");
@@ -127,12 +124,14 @@ function PlanningPage() {
             />
 
             <main className="planning-main-v2">
-                <MapLayout
-                    selectedCountry={selectedCountry}
-                    mapCenter={mapCenter}
-                    mapZoom={mapZoom}
-                    defaultCenter={defaultCenter}
-                />
+                <div className="planning-map-wrapper">
+                    <MapLayout
+                        selectedCountry={selectedCountry}
+                        mapCenter={mapCenter}
+                        mapZoom={mapZoom}
+                        defaultCenter={defaultCenter}
+                    />
+                </div>
 
                 <div className="planning-gallery-section">
                     {selectedCountry ? (

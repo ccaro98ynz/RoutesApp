@@ -1,0 +1,230 @@
+.gallery-root {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: #0f0f0f;
+}
+
+.gallery-hero {
+    position: relative;
+    flex: 1;
+    overflow: hidden;
+    border-radius: 24px;
+    background: #111;
+}
+
+.gallery-hero__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.gallery-hero__img--in {
+    transform: scale(1.06) translate( var(--parallax-x,0px), var(--parallax-y,0px) );
+    transition: transform 90ms linear;
+}
+
+    .gallery-hero__img--in.is-transitioning {
+        transition: opacity 600ms ease, transform 700ms cubic-bezier(.22,1,.36,1);
+    }
+
+.gallery-hero__img--out {
+    animation: fadeOut .6s ease forwards;
+}
+
+.gallery-hero__vignette {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient( to top, rgba(0,0,0,.75), rgba(0,0,0,.15), rgba(0,0,0,.2) );
+    pointer-events: none;
+}
+
+.gallery-hero__depth {
+    position: absolute;
+    inset: -20px;
+    background: radial-gradient( circle at center, rgba(255,255,255,.08), transparent 70% );
+    transform: translate( var(--depth-x,0px), var(--depth-y,0px) );
+    transition: transform 90ms linear;
+    pointer-events: none;
+}
+
+.gallery-chip {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: rgba(0,0,0,.45);
+    backdrop-filter: blur(12px);
+    z-index: 10;
+}
+
+.gallery-chip__flag {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.gallery-chip__name {
+    color: white;
+    font-weight: 600;
+}
+
+.gallery-chip__badge {
+    color: #d4af37;
+    font-size: .75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.gallery-counter {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: rgba(0,0,0,.45);
+    color: white;
+    z-index: 10;
+}
+
+.gallery-caption {
+    position: absolute;
+    left: 32px;
+    bottom: 32px;
+    z-index: 10;
+    color: white;
+}
+
+.gallery-caption__label {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.gallery-caption__meta {
+    margin-top: 8px;
+    display: flex;
+    gap: 14px;
+    font-size: .9rem;
+    opacity: .9;
+}
+
+.gallery-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 54px;
+    height: 54px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0,0,0,.45);
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 12;
+    transition: .25s;
+}
+
+    .gallery-nav:hover {
+        transform: translateY(-50%) scale(1.08);
+    }
+
+.gallery-nav--prev {
+    left: 20px;
+}
+
+.gallery-nav--next {
+    right: 20px;
+}
+
+.gallery-strip {
+    padding-top: 16px;
+}
+
+.gallery-strip__track {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+    .gallery-strip__track::-webkit-scrollbar {
+        display: none;
+    }
+
+.gallery-strip__thumb {
+    position: relative;
+    width: 130px;
+    height: 82px;
+    border: none;
+    border-radius: 16px;
+    overflow: hidden;
+    flex-shrink: 0;
+    cursor: pointer;
+    opacity: .55;
+    transition: .25s;
+}
+
+    .gallery-strip__thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .gallery-strip__thumb:hover {
+        opacity: .9;
+        transform: translateY(-2px);
+    }
+
+    .gallery-strip__thumb.is-active {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+
+.gallery-strip__thumb-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient( to top, rgba(0,0,0,.4), transparent );
+}
+
+.gallery-strip__thumb-bar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 4px;
+    background: #d4af37;
+}
+
+.gallery-loading,
+.gallery-empty {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}

@@ -10,5 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="src\Components\Dashboard\" />
+    <Folder Include="src\Components\Planning\components\SideBar\" />
+    <Folder Include="src\Components\Planning\services\" />
   </ItemGroup>
 </Project>

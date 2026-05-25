@@ -1,0 +1,115 @@
+/* ROOT */
+
+.planning-map-compact {
+    position: relative;
+    width: 100%;
+    height: 260px;
+    overflow: hidden;
+    border-radius: 18px;
+    background: #0e0c0b;
+    border: 1px solid rgba(255,255,255,.06);
+}
+
+/* MAP */
+
+.planning-map {
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+/* OVERLAY */
+
+.planning-map-overlay {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    right: 18px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    z-index: 20;
+    pointer-events: none;
+}
+
+/* INFO */
+
+.planning-map-overlay__info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    background: rgba(15,15,15,.55);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 14px;
+}
+
+.planning-map-overlay__flag {
+    width: 42px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 6px;
+    box-shadow: 0 4px 14px rgba(0,0,0,.35);
+}
+
+.planning-map-overlay__text {
+    display: flex;
+    flex-direction: column;
+}
+
+.planning-map-overlay__eyebrow {
+    font-size: .68rem;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    color: rgba(255,255,255,.55);
+}
+
+.planning-map-overlay__name {
+    font-size: .95rem;
+    font-weight: 700;
+    color: white;
+}
+
+/* PILLS */
+
+.planning-map-overlay__pills {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.planning-map-overlay__pill {
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: rgba(15,15,15,.55);
+    border: 1px solid rgba(255,255,255,.08);
+    backdrop-filter: blur(10px);
+    font-size: .72rem;
+    font-weight: 600;
+    color: rgba(255,255,255,.82);
+}
+
+/* EMPTY */
+
+.planning-map-empty {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 5;
+    color: rgba(255,255,255,.45);
+}
+
+.planning-map-empty__icon {
+    font-size: 2.6rem;
+    opacity: .35;
+}
+
+.planning-map-empty__text {
+    font-size: .88rem;
+    letter-spacing: .03em;
+}

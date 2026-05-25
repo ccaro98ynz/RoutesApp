@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-
-function useParallax(
-    ref: React.RefObject<HTMLElement | null>,
+import type { RefObject } from "react";
+export default function useParallax(
+    ref: RefObject<HTMLElement | null>,
     strength = 14
 ) {
     const [offset, setOffset] = useState({ x: 0, y: 0 });
@@ -44,4 +44,3 @@ function useParallax(
     return offset;
 }
 
-export default useParallax;

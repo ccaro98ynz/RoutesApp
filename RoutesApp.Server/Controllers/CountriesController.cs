@@ -2,11 +2,10 @@
 
 namespace RoutesApp.Server.Controllers
 {
-    public class AuthController : Controller
+    [ApiController]
+    [Route("api/[controller]")]
+    public class CountriesController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+       
     }
 }

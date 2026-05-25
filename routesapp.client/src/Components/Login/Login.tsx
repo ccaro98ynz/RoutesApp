@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Hook para navegación fluida
+import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Login.css";
 
@@ -20,7 +20,7 @@ const LoginPage = () => {
     const [showPass, setShowPass] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    const navigate = useNavigate(); // Inicializamos el navegador nativo de React Router
+    const navigate = useNavigate(); 
 
     const validate = (): boolean => {
         const e: FieldError = {};
@@ -35,16 +35,14 @@ const LoginPage = () => {
         setErrors({ ...errors, [e.target.name]: undefined, general: undefined });
     };
 
-    // Transformamos a función asíncrona para manejar HTTP
     const handleSubmit = async (e: React.MouseEvent) => {
         e.preventDefault();
         if (!validate()) return;
 
         setLoading(true);
-        setErrors({}); // Limpiamos errores previos
+        setErrors({}); 
 
         try {
-            // Reemplaza con tu puerto de .NET si es diferente a tu endpoint de Customers
             const response = await fetch("https://localhost:7269/Customers/Login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -55,15 +53,12 @@ const LoginPage = () => {
             });
 
             if (!response.ok) {
-                // Si el backend responde con 400 o 401 (Credenciales incorrectas)
                 throw new Error("Credenciales inválidas");
             }
             const data = await response.json();
-            // Guardamos el token o el ID del usuario en localStorage para saber quién inició sesión
             if (data.id) {
                 localStorage.setItem("customerId", data.id.toString());
             }
-            // Redirección instantánea sin recargar la pestaña completa
             navigate("/dashboard");
 
         } catch (error) {

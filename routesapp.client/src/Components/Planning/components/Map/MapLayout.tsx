@@ -2,13 +2,16 @@ import { useEffect } from "react";
 import { MapContainer,TileLayer,Marker,Popup,useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import type { OverpassPlace } from "../../services/place.service.ts";
 import "./Map.css";
 import type { CountryResult } from "../../types/planning.types.ts";
+
 interface PlanningMapProps {
     selectedCountry: CountryResult | null;
     mapCenter: [number, number];
     mapZoom: number;
     defaultCenter: [number, number];
+    places: OverpassPlace[];
 }
 const iconProto = L.Icon.Default.prototype as unknown as Record<string, unknown>;
 delete iconProto._getIconUrl;
@@ -50,6 +53,7 @@ function MapLayout({
     mapCenter,
     mapZoom,
     defaultCenter,
+    places,
 }: PlanningMapProps) {
 
     return (
@@ -80,6 +84,7 @@ function MapLayout({
                             </strong>
                         </Popup>
                     </Marker>
+
                 )}
             </MapContainer>
             {selectedCountry ? (

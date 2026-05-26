@@ -12,7 +12,7 @@ export async function searchCountries(
     const res = await fetch(
         `${REST_COUNTRIES_BASE_URL}/name/${encodeURIComponent(
             cleanQuery
-        )}?fields=name,cca2,flags,latlng,capital,population,region,subregion`
+        )}?fields=name,cca2,flags,latlng,capital,population`
     );
 
     if (!res.ok) return [];

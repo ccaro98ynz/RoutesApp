@@ -1,9 +1,9 @@
 import "./SideBar.css";
-import type { CountryResult, TravelerKey } from "../../types/planning.types";
+import type { CountryResult, TravelerKey } from "../../types/planning.types.ts";
+import type { StateResult } from "../../services/location.service.ts";
 import { travelerOptions } from "../../constants/planning.constants.ts";
 
 interface SideBarProps {
-    // Búsqueda de país
     query: string;
     setQuery: React.Dispatch<React.SetStateAction<string>>;
     suggestions: CountryResult[];
@@ -14,43 +14,37 @@ interface SideBarProps {
     searchRef: React.RefObject<HTMLDivElement | null>;
     handleSelectCountry: (country: CountryResult) => void;
 
-    // Campos de Routes
-    startDate: string;                                           // start_date
+    startDate: string;
     setStartDate: React.Dispatch<React.SetStateAction<string>>;
-    endDate: string;                                             // end_date
+    endDate: string;
     setEndDate: React.Dispatch<React.SetStateAction<string>>;
-    travelerType: TravelerKey;                                   // traveler_type
+
+    travelerType: TravelerKey;
     setTravelerType: React.Dispatch<React.SetStateAction<TravelerKey>>;
-    totalGuests: number;                                         // total_guests
+
+    totalGuests: number;
     setTotalGuests: React.Dispatch<React.SetStateAction<number>>;
 
-    // Control de generación
     generating: boolean;
     genError: string;
     handleGenerate: () => void;
+
+    states: StateResult[];
+    cities: string[];
+    selectedState: string;
+    setSelectedState: React.Dispatch<React.SetStateAction<string>>;
+    selectedCity: string;
+    setSelectedCity: React.Dispatch<React.SetStateAction<string>>;
 }
 
 function SideBar({
-    query,
-    setQuery,
-    suggestions,
-    selectedCountry,
-    loadingSuggest,
-    showDd,
-    setShowDd,
-    searchRef,
-    handleSelectCountry,
-    startDate,
-    setStartDate,
-    endDate,
-    setEndDate,
-    travelerType,
-    setTravelerType,
-    totalGuests,
-    setTotalGuests,
-    generating,
-    genError,
-    handleGenerate,
+    query, setQuery, suggestions, selectedCountry, loadingSuggest,
+    showDd, setShowDd, searchRef, handleSelectCountry,
+    startDate, setStartDate, endDate, setEndDate,
+    travelerType, setTravelerType,
+    totalGuests, setTotalGuests,
+    generating, genError, handleGenerate,
+    states, cities, selectedState, setSelectedState, selectedCity, setSelectedCity,
 }: SideBarProps) {
     return (
         <aside className="planner-sidebar">
@@ -78,11 +72,7 @@ function SideBar({
                     <div className="search-dropdown">
                         {suggestions.length > 0 ? (
                             suggestions.map((c) => (
-                                <div
-                                    key={c.cca2}
-                                    className="search-option"
-                                    onClick={() => handleSelectCountry(c)}
-                                >
+                                <div key={c.cca2} className="search-option" onClick={() => handleSelectCountry(c)}>
                                     <img src={c.flags.png} alt="" className="search-option-flag" />
                                     <span className="search-option-name">{c.name.common}</span>
                                     <span className="search-option-code">{c.cca2}</span>
@@ -98,15 +88,9 @@ function SideBar({
             {/* País seleccionado */}
             {selectedCountry && (
                 <div className="selected-country-card">
-                    <img
-                        src={selectedCountry.flags.svg}
-                        alt=""
-                        className="selected-country-flag"
-                    />
+                    <img src={selectedCountry.flags.svg} alt="" className="selected-country-flag" />
                     <div className="selected-country-info">
-                        <strong className="selected-country-name">
-                            {selectedCountry.name.common}
-                        </strong>
+                        <strong className="selected-country-name">{selectedCountry.name.common}</strong>
                         <span className="selected-country-meta">
                             🏛 {selectedCountry.capital?.[0] ?? "—"}
                             · 🌍 {selectedCountry.region}
@@ -116,34 +100,85 @@ function SideBar({
                 </div>
             )}
 
-            {/* Fechas del viaje → start_date / end_date */}
-            <div className="dates-section">
-                <label className="section-label">Fechas del viaje</label>
-                <div className="dates-row">
-                    <div className="date-field">
-                        <span className="date-field-label">Salida</span>
-                        <input
-                            type="date"
-                            className="date-input"
-                            value={startDate}
-                            min={new Date().toISOString().split("T")[0]}
-                            onChange={(e) => setStartDate(e.target.value)}
-                        />
+            {/* Estado y Ciudad — solo con select, sin tipado libre */}
+            {selectedCountry && (
+                <div className="location-section">
+                    <label className="section-label">Ubicación específica</label>
+                    <div className="location-grid">
+                        <div className="field-group">
+                            <span className="field-label">Estado</span>
+                            <select
+                                className="location-select"
+                                value={selectedState}
+                                onChange={(e) => {
+                                    setSelectedState(e.target.value);
+                                    setSelectedCity("");
+                                }}
+                            >
+                                <option value="">— Selecciona —</option>
+                                {states.map((s) => (
+                                    <option key={s.name} value={s.name}>{s.name}</option>
+                                ))}
+                            </select>
+                        </div>
+
+                        <div className="field-group">
+                            <span className="field-label">Ciudad</span>
+                            <select
+                                className="location-select"
+                                value={selectedCity}
+                                onChange={(e) => setSelectedCity(e.target.value)}
+                                disabled={!selectedState || cities.length === 0}
+                            >
+                                <option value="">— Selecciona —</option>
+                                {cities.map((city) => (
+                                    <option key={city} value={city}>{city}</option>
+                                ))}
+                            </select>
+                        </div>
                     </div>
-                    <div className="date-field">
-                        <span className="date-field-label">Regreso</span>
-                        <input
-                            type="date"
-                            className="date-input"
-                            value={endDate}
-                            min={startDate || new Date().toISOString().split("T")[0]}
-                            onChange={(e) => setEndDate(e.target.value)}
-                        />
+                </div>
+            )}
+
+            {/* Fechas + Viajeros */}
+            <div className="planner-form-grid">
+                <div className="dates-section compact-card">
+                    <label className="section-label">Fechas</label>
+                    <div className="dates-row">
+                        <div className="date-field">
+                            <span className="date-field-label">Salida</span>
+                            <input
+                                type="date"
+                                className="date-input"
+                                value={startDate}
+                                min={new Date().toISOString().split("T")[0]}
+                                onChange={(e) => setStartDate(e.target.value)}
+                            />
+                        </div>
+                        <div className="date-field">
+                            <span className="date-field-label">Regreso</span>
+                            <input
+                                type="date"
+                                className="date-input"
+                                value={endDate}
+                                min={startDate || new Date().toISOString().split("T")[0]}
+                                onChange={(e) => setEndDate(e.target.value)}
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <div className="guests-section compact-card">
+                    <label className="section-label">Viajeros</label>
+                    <div className="guests-counter">
+                        <button className="guests-btn" onClick={() => setTotalGuests(Math.max(1, totalGuests - 1))} disabled={totalGuests <= 1}>−</button>
+                        <span className="guests-value">{totalGuests}</span>
+                        <button className="guests-btn" onClick={() => setTotalGuests(totalGuests + 1)}>+</button>
                     </div>
                 </div>
             </div>
 
-            {/* Tipo de viajero → traveler_type */}
+            {/* Tipo de viajero */}
             <div className="travelers-section">
                 <label className="section-label">¿Con quién viajas?</label>
                 <div className="travelers-options">
@@ -156,27 +191,6 @@ function SideBar({
                             {label}
                         </button>
                     ))}
-                </div>
-            </div>
-
-            {/* Total de viajeros → total_guests */}
-            <div className="guests-section">
-                <label className="section-label">¿Cuántos viajan?</label>
-                <div className="guests-counter">
-                    <button
-                        className="guests-btn"
-                        onClick={() => setTotalGuests(Math.max(1, totalGuests - 1))}
-                        disabled={totalGuests <= 1}
-                    >
-                        −
-                    </button>
-                    <span className="guests-value">{totalGuests}</span>
-                    <button
-                        className="guests-btn"
-                        onClick={() => setTotalGuests(totalGuests + 1)}
-                    >
-                        +
-                    </button>
                 </div>
             </div>
 

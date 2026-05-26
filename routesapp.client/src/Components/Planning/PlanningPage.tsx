@@ -3,9 +3,11 @@ import "./Planning.css";
 import SideBar from "./components/SideBar/SideBar";
 import MapLayout from "./components/Map/MapLayout.tsx";
 import GalleryCarousel from "./components/Gallery/GalleryCarousel";
-import { fetchCountryImages } from "./services/images.service";
+import { fetchCountryImages } from "./services/images.service.ts";
 import type { CountryResult, CountryImage, TravelerKey } from "./types/planning.types";
 import { searchCountries } from "./services/countryInfo.service.ts";
+import { fetchStatesByCountry, fetchCitiesByState, type StateResult } from "./services/location.service.ts";
+import { fetchPlacesByCity } from "./services/place.service.ts";
 function PlanningPage() {
     const [query, setQuery] = useState("");
     const [suggestions, setSuggestions] = useState<CountryResult[]>([]);
@@ -21,7 +23,11 @@ function PlanningPage() {
     const [totalGuests, setTotalGuests] = useState(2);
     const [generating, setGenerating] = useState(false);
     const [genError, setGenError] = useState("");
+    const [states, setStates] = useState<StateResult[]>([]);
+    const [cities, setCities] = useState<string[]>([]);
 
+    const [selectedState, setSelectedState] = useState("");
+    const [selectedCity, setSelectedCity] = useState("");
     const searchRef = useRef<HTMLDivElement>(null);
     const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const defaultCenter: [number, number] = [23.6345, -102.5528];
@@ -72,25 +78,78 @@ function PlanningPage() {
             .finally(() => { if (mounted) setLoadingImages(false); });
         return () => { mounted = false; };
     }, [selectedCountry]);
+    useEffect(() => {
+        if (!selectedCountry) {
+            setStates([]);
+            setCities([]);
+            setSelectedState("");
+            setSelectedCity("");
+            return;
+        }
+
+        fetchStatesByCountry(selectedCountry.name.common)
+            .then(setStates)
+            .catch(() => setStates([]));
+
+    }, [selectedCountry]);
+    useEffect(() => {
+        if (!selectedCountry || !selectedState) {
+            setCities([]);
+            setSelectedCity("");
+            return;
+        }
+
+        fetchCitiesByState(
+            selectedCountry.name.common,
+            selectedState
+        )
+            .then(setCities)
+            .catch(() => setCities([]));
+
+    }, [selectedCountry, selectedState]);
 
     const handleSelectCountry = (country: CountryResult) => {
         setSelectedCountry(country);
         setQuery(country.name.common);
         setShowDd(false);
+
+        setSelectedState("");
+        setSelectedCity("");
+        setStates([]);
+        setCities([]);
+
         if (country.latlng?.length >= 2) {
             setMapCenter([country.latlng[0], country.latlng[1]]);
             setMapZoom(5);
         }
     };
-
     const handleGenerate = async () => {
         if (!selectedCountry) { setGenError("Selecciona un país primero."); return; }
+        if (!selectedState) {setGenError("Selecciona un estado/departamento.");return;}
+        if (!selectedCity) {setGenError("Selecciona una ciudad.");return;}
         if (!startDate || !endDate) { setGenError("Elige las fechas del viaje."); return; }
         if (endDate <= startDate) { setGenError("La fecha de regreso debe ser posterior a la de salida."); return; }
         setGenError("");
         setGenerating(true);
         try {
-            // await createRoute({ selectedCountry, startDate, endDate, travelerType, totalGuests });
+            const attractions = await fetchPlacesByCity(
+                selectedCity,
+                selectedState,
+                selectedCountry.cca2,
+                "attraction",
+                20
+            );
+
+            const restaurants = await fetchPlacesByCity(
+                selectedCity,
+                selectedState,
+                selectedCountry.cca2,
+                "restaurant",
+                10
+            );
+
+            console.log("Atracciones:", attractions);
+            console.log("Restaurantes:", restaurants);
         } catch {
             setGenError("Error al generar el itinerario. Intenta de nuevo.");
         } finally {
@@ -121,6 +180,12 @@ function PlanningPage() {
                 generating={generating}
                 genError={genError}
                 handleGenerate={handleGenerate}
+                states={states}
+                cities={cities}
+                selectedState={selectedState}
+                setSelectedState={setSelectedState}
+                selectedCity={selectedCity}
+                setSelectedCity={setSelectedCity}
             />
 
             <main className="planning-main-v2">

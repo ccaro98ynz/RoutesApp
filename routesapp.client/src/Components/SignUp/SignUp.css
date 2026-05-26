@@ -1,235 +1,321 @@
-/* ── LOGIN PAGE ── */
-.lp-wrapper {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: row-reverse;
+:root {
+    --bg: #f5f7fb;
+    --panel: #ffffff;
+    --deep: #0f2740;
+    --deep-2: #123b63;
+    --text: #172033;
+    --muted: #6b7280;
+    --line: rgba(15, 39, 64, 0.12);
+    --coral: #ff6f91;
+    --coral-dark: #f05278;
+    --coral-soft: rgba(255, 111, 145, 0.12);
+    --blue-soft: #dbeafe;
+    --mist: #f9fbff;
+    --white: #ffffff;
 }
 
-.lp-right {
+/* ───────────────────────────────────────── */
+/* LAYOUT */
+/* ───────────────────────────────────────── */
+.rp-wrapper {
+    display: flex;
+    min-height: 100vh;
+    background: radial-gradient(circle at top left, rgba(219,234,254,.9), transparent 30%), radial-gradient(circle at bottom right, rgba(255,111,145,.15), transparent 28%), var(--bg);
+    overflow: hidden;
+}
+
+/* ───────────────────────────────────────── */
+/* LEFT SIDE */
+/* ───────────────────────────────────────── */
+.rp-left {
     width: 45%;
-    background: var(--deep);
+    background: linear-gradient(160deg, rgba(255,111,145,.14), transparent 30%), linear-gradient(180deg, var(--deep), var(--deep-2));
     padding: 3rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: relative;
+    overflow: hidden;
 }
 
-.lp-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--sand);
+    .rp-left::before {
+        content: "";
+        position: absolute;
+        width: 380px;
+        height: 380px;
+        border-radius: 999px;
+        background: rgba(255,255,255,.05);
+        top: -120px;
+        right: -120px;
+    }
+
+    .rp-left::after {
+        content: "";
+        position: absolute;
+        width: 220px;
+        height: 220px;
+        border: 1px solid rgba(255,255,255,.1);
+        border-radius: 999px;
+        left: -80px;
+        bottom: 80px;
+    }
+
+.rp-logo {
+    position: relative;
+    z-index: 2;
+    font-family: "Playfair Display", serif;
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: white;
     text-decoration: none;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
 }
 
-    .lp-logo span {
-        color: var(--accent);
+    .rp-logo span {
+        color: var(--coral);
     }
 
-.lp-right-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 3rem 0;
+.rp-left-content {
+    position: relative;
+    z-index: 2;
+    max-width: 440px;
 }
 
-.lp-right-eyebrow {
-    font-size: 0.7rem;
-    font-weight: 500;
-    letter-spacing: 0.2em;
+.rp-left-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 800;
     text-transform: uppercase;
-    color: var(--earth);
+    letter-spacing: 0.18em;
+    color: rgba(255,255,255,.6);
     margin-bottom: 1rem;
 }
 
-.lp-right h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.8rem, 3vw, 2.8rem);
-    font-weight: 700;
-    color: var(--sand);
-    line-height: 1.1;
+.rp-left h2 {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 0.98;
+    color: white;
     margin-bottom: 1rem;
 }
 
-    .lp-right h2 em {
+    .rp-left h2 em {
+        color: var(--coral);
         font-style: italic;
-        color: var(--accent);
     }
 
-.lp-right p {
-    font-size: 0.95rem;
-    font-weight: 300;
-    color: rgba(245, 237, 224, 0.6);
-    line-height: 1.7;
+.rp-left p {
+    color: rgba(255,255,255,.72);
+    line-height: 1.8;
+    font-size: 1rem;
 }
 
-.lp-right-footer {
-    font-size: 0.8rem;
-    color: rgba(196, 168, 130, 0.5);
+.rp-left-footer {
+    position: relative;
+    z-index: 2;
+    color: rgba(255,255,255,.45);
+    font-size: 0.82rem;
 }
 
-/* LEFT form */
-.lp-left {
+/* ───────────────────────────────────────── */
+/* RIGHT SIDE */
+/* ───────────────────────────────────────── */
+.rp-right {
     width: 55%;
-    background: var(--sand);
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 3rem 2rem;
 }
 
-.lp-form-box {
+.rp-form-box {
     width: 100%;
-    max-width: 420px;
+    max-width: 470px;
+    background: rgba(255,255,255,.78);
+    border: 1px solid rgba(15,39,64,.08);
+    border-radius: 28px;
+    padding: 2.3rem;
+    box-shadow: 0 20px 50px rgba(15,39,64,.08), 0 2px 6px rgba(15,39,64,.04);
+    backdrop-filter: blur(14px);
 }
 
-.lp-form-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--deep);
-    margin-bottom: 0.5rem;
+.rp-form-title {
+    font-family: "Playfair Display", serif;
+    font-size: 2.3rem;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: .4rem;
 }
 
-.lp-form-sub {
-    font-size: 0.9rem;
-    color: #6b5a47;
+.rp-form-sub {
+    font-size: .95rem;
+    color: var(--muted);
     margin-bottom: 2rem;
 }
 
-    .lp-form-sub a {
-        color: var(--accent);
+    .rp-form-sub a {
+        color: var(--coral);
         text-decoration: none;
-        font-weight: 500;
+        font-weight: 700;
     }
 
-.lp-general-error {
-    background: rgba(224, 92, 42, 0.1);
-    border: 1px solid rgba(224, 92, 42, 0.3);
-    color: #e05c2a;
-    font-size: 0.85rem;
-    padding: 0.75rem 1rem;
-    border-radius: 3px;
-    margin-bottom: 1.25rem;
-}
-
+/* ───────────────────────────────────────── */
 /* FIELDS */
-.lp-field {
-    margin-bottom: 1.25rem;
+/* ───────────────────────────────────────── */
+.rp-field {
+    margin-bottom: 1.15rem;
 }
 
-.lp-label {
+.rp-label {
     display: block;
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: var(--deep);
-    margin-bottom: 0.4rem;
-    letter-spacing: 0.03em;
+    margin-bottom: .45rem;
+    font-size: .82rem;
+    font-weight: 700;
+    color: var(--text);
 }
 
-.lp-input-wrap {
+.rp-input-wrap {
     position: relative;
 }
 
-.lp-input {
+.rp-input {
     width: 100%;
-    padding: 0.75rem 1rem;
+    padding: .9rem 1rem;
     background: var(--mist);
-    border: 1.5px solid rgba(196, 168, 130, 0.4);
-    border-radius: 3px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.9rem;
-    color: var(--deep);
-    transition: border-color 0.2s;
+    border: 1.5px solid rgba(15,39,64,.12);
+    border-radius: 14px;
+    font-size: .95rem;
+    color: var(--text);
     outline: none;
+    transition: border-color .18s ease, box-shadow .18s ease, background .18s ease;
 }
 
-    .lp-input:focus {
-        border-color: var(--accent);
+    .rp-input:focus {
+        border-color: var(--deep-2);
+        box-shadow: 0 0 0 4px rgba(18,59,99,.08);
+        background: white;
     }
 
-    .lp-input.is-error {
-        border-color: #e05c2a;
+    .rp-input.is-error {
+        border-color: var(--coral-dark);
+        box-shadow: 0 0 0 4px rgba(255,111,145,.12);
     }
 
-.lp-input-icon {
+.rp-input-icon {
     position: absolute;
-    right: 0.75rem;
+    right: .85rem;
     top: 50%;
     transform: translateY(-50%);
-    background: none;
+    background: transparent;
     border: none;
     cursor: pointer;
     font-size: 1rem;
-    padding: 0;
-    line-height: 1;
 }
 
-.lp-error {
-    font-size: 0.78rem;
-    color: #e05c2a;
-    margin-top: 0.3rem;
+.rp-error {
+    margin-top: .35rem;
+    color: var(--coral-dark);
+    font-size: .78rem;
 }
 
-.lp-forgot {
-    display: inline-block;
-    margin-top: 0.4rem;
-    font-size: 0.78rem;
-    color: var(--earth);
-    text-decoration: none;
-    transition: color 0.2s;
+/* ───────────────────────────────────────── */
+/* PASSWORD STRENGTH */
+/* ───────────────────────────────────────── */
+.rp-strength-bar {
+    height: 4px;
+    background: rgba(15,39,64,.08);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-top: .55rem;
 }
 
-    .lp-forgot:hover {
-        color: var(--accent);
+.rp-strength-fill {
+    height: 100%;
+    border-radius: inherit;
+    transition: .25s ease;
+}
+
+.rp-strength-label {
+    font-size: .75rem;
+    font-weight: 700;
+    margin-top: .35rem;
+}
+
+/* ───────────────────────────────────────── */
+/* BUTTON */
+/* ───────────────────────────────────────── */
+.btn-submit {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--coral), #ff7ca8);
+    color: white;
+    font-size: .92rem;
+    font-weight: 800;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    box-shadow: 0 12px 30px rgba(255,111,145,.28);
+}
+
+    .btn-submit:hover {
+        transform: translateY(-2px);
+        background: linear-gradient(135deg, var(--coral-dark), var(--coral));
     }
 
-/* SPINNER */
-.lp-spinner {
-    display: inline-block;
-    width: 14px;
-    height: 14px;
-    border: 2px solid rgba(245, 237, 224, 0.3);
-    border-top-color: var(--sand);
-    border-radius: 50%;
-    animation: spin 0.7s linear infinite;
-    margin-right: 0.5rem;
-    vertical-align: middle;
-}
-
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
+    .btn-submit:active {
+        transform: scale(.99);
     }
-}
 
-.lp-register-cta {
-    margin-top: 1.5rem;
+/* ───────────────────────────────────────── */
+/* SUCCESS */
+/* ───────────────────────────────────────── */
+.rp-success {
     text-align: center;
-    font-size: 0.85rem;
-    color: #6b5a47;
+    padding: 1rem 0;
 }
 
-    .lp-register-cta a {
-        color: var(--accent);
-        text-decoration: none;
-        font-weight: 500;
-    }
+.rp-success-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
 
+.rp-success h3 {
+    font-family: "Playfair Display", serif;
+    font-size: 2rem;
+    color: var(--text);
+    margin-bottom: .8rem;
+}
+
+.rp-success p {
+    color: var(--muted);
+    line-height: 1.7;
+}
+
+/* ───────────────────────────────────────── */
 /* RESPONSIVE */
-@media (max-width: 768px) {
-    .lp-wrapper {
+/* ───────────────────────────────────────── */
+@media (max-width: 900px) {
+    .rp-wrapper {
         flex-direction: column;
     }
 
-    .lp-left,
-    .lp-right {
+    .rp-left,
+    .rp-right {
         width: 100%;
     }
 
-    .lp-right {
-        min-height: 40vh;
+    .rp-left {
+        min-height: 340px;
+    }
+
+    .rp-right {
+        padding: 2rem 1rem;
+    }
+
+    .rp-form-box {
+        border-radius: 22px;
+        padding: 1.7rem;
     }
 }

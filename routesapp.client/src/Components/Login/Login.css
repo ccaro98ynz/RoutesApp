@@ -1,248 +1,258 @@
-/* ── LOGIN / REGISTER PAGES ── */
-.rp-wrapper {
-    display: flex;
-    min-height: 100vh;
+:root {
+    --bg: #f4f7fc;
+    --panel: #ffffff;
+    --ink: #162033;
+    --muted: #6c7a92;
+    --blue: #173b63;
+    --blue-dark: #0f2744;
+    --blue-soft: #dbeafe;
+    --coral: #ff5f7e;
+    --coral-2: #ff8ba0;
+    --coral-soft: rgba(255, 95, 126, 0.12);
+    --line: rgba(23, 59, 99, 0.14);
+    --error: #ef476f;
 }
 
-.rp-left {
-    width: 45%;
-    background: var(--deep);
-    padding: 3rem;
+.lp-wrapper {
+    display: grid;
+    grid-template-columns: 45% 55%;
+    min-height: 100vh;
+    background: var(--bg);
+    font-family: "DM Sans", sans-serif;
+}
+
+/* PANEL AZUL */
+.lp-right {
+    background: radial-gradient(circle at 25% 20%, rgba(255, 95, 126, 0.18), transparent 32%), linear-gradient(180deg, var(--blue), var(--blue-dark));
+    padding: 3.5rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    color: white;
+    overflow: hidden;
 }
 
-.rp-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--sand);
+.lp-logo {
+    font-family: "Playfair Display", serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: white;
     text-decoration: none;
-    letter-spacing: -0.02em;
 }
 
-    .rp-logo span {
-        color: var(--accent);
+    .lp-logo span {
+        color: var(--coral-2);
     }
 
-.rp-left-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 3rem 0;
+.lp-right-content {
+    max-width: 520px;
 }
 
-.rp-left-eyebrow {
-    font-size: 0.7rem;
-    font-weight: 500;
-    letter-spacing: 0.2em;
+.lp-right-eyebrow {
     text-transform: uppercase;
-    color: var(--earth);
+    letter-spacing: .18em;
+    font-size: .75rem;
+    font-weight: 800;
+    color: rgba(255,255,255,.65);
     margin-bottom: 1rem;
 }
 
-.rp-left h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.8rem, 3vw, 2.8rem);
-    font-weight: 700;
-    color: var(--sand);
-    line-height: 1.1;
-    margin-bottom: 1rem;
+.lp-right h2 {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(2.4rem, 5vw, 4.4rem);
+    line-height: 1;
+    font-weight: 800;
+    margin-bottom: 1.2rem;
 }
 
-    .rp-left h2 em {
-        font-style: italic;
-        color: var(--accent);
+    .lp-right h2 em {
+        color: var(--coral-2);
     }
 
-.rp-left p {
-    font-size: 0.95rem;
-    font-weight: 300;
-    color: rgba(245, 237, 224, 0.6);
-    line-height: 1.7;
+.lp-right p {
+    color: rgba(255,255,255,.76);
+    line-height: 1.75;
+    font-size: 1rem;
 }
 
-.rp-left-footer {
-    font-size: 0.8rem;
-    color: rgba(196, 168, 130, 0.5);
+.lp-right-footer {
+    color: rgba(255,255,255,.5);
+    font-size: .85rem;
 }
 
-/* RIGHT */
-.rp-right {
-    width: 55%;
-    background: var(--sand);
+/* FORM */
+.lp-left {
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 3rem 2rem;
+    background: radial-gradient(circle at 80% 10%, rgba(219,234,254,.9), transparent 32%), radial-gradient(circle at 20% 90%, rgba(255,95,126,.14), transparent 30%), var(--bg);
 }
 
-.rp-form-box {
+.lp-form-box {
     width: 100%;
-    max-width: 420px;
+    max-width: 430px;
+    background: rgba(255,255,255,.86);
+    border: 1px solid var(--line);
+    border-radius: 28px;
+    padding: 2.4rem;
+    box-shadow: 0 24px 70px rgba(15,39,68,.12);
 }
 
-.rp-form-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--deep);
-    margin-bottom: 0.5rem;
+.lp-form-title {
+    font-family: "Playfair Display", serif;
+    font-size: 2.45rem;
+    font-weight: 800;
+    color: var(--ink);
+    margin: 0 0 .5rem;
 }
 
-.rp-form-sub {
-    font-size: 0.9rem;
-    color: #6b5a47;
-    margin-bottom: 2rem;
+.lp-form-sub,
+.lp-register-cta {
+    color: var(--muted);
+    font-size: .95rem;
 }
 
-    .rp-form-sub a {
-        color: var(--accent);
+.lp-form-sub {
+    margin-bottom: 1.8rem;
+}
+
+    .lp-form-sub a,
+    .lp-register-cta a,
+    .lp-forgot {
+        color: var(--coral);
+        font-weight: 800;
         text-decoration: none;
-        font-weight: 500;
     }
 
-/* FIELDS */
-.rp-field {
-    margin-bottom: 1.25rem;
+/* CAMPOS */
+.lp-field {
+    margin-bottom: 1.15rem;
 }
 
-.rp-label {
+.lp-label {
     display: block;
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: var(--deep);
-    margin-bottom: 0.4rem;
-    letter-spacing: 0.03em;
+    font-size: .84rem;
+    font-weight: 800;
+    color: var(--ink);
+    margin-bottom: .45rem;
 }
 
-.rp-input-wrap {
+.lp-input-wrap {
     position: relative;
 }
 
-.rp-input {
+.lp-input {
     width: 100%;
-    padding: 0.75rem 1rem;
-    background: var(--mist);
-    border: 1.5px solid rgba(196, 168, 130, 0.4);
-    border-radius: 3px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.9rem;
-    color: var(--deep);
-    transition: border-color 0.2s;
+    height: 48px;
+    padding: 0 .95rem;
+    background: white;
+    border: 1.5px solid var(--line);
+    border-radius: 14px;
+    color: var(--ink);
+    font-size: .95rem;
     outline: none;
+    box-sizing: border-box;
 }
 
-    .rp-input:focus {
-        border-color: var(--accent);
+    .lp-input:focus {
+        border-color: var(--blue);
+        box-shadow: 0 0 0 4px rgba(23,59,99,.1);
     }
 
-    .rp-input.is-error {
-        border-color: #e05c2a;
+    .lp-input.is-error {
+        border-color: var(--error);
     }
 
-.rp-input-icon {
+.lp-input-icon {
     position: absolute;
-    right: 0.75rem;
+    right: .85rem;
     top: 50%;
     transform: translateY(-50%);
-    background: none;
     border: none;
+    background: transparent;
     cursor: pointer;
-    font-size: 1rem;
-    padding: 0;
-    line-height: 1;
 }
 
-.rp-error {
-    font-size: 0.78rem;
-    color: #e05c2a;
-    margin-top: 0.3rem;
+.lp-error {
+    color: var(--error);
+    font-size: .78rem;
+    margin-top: .35rem;
 }
 
-/* PASSWORD STRENGTH */
-.rp-strength-bar {
-    height: 3px;
-    background: rgba(196, 168, 130, 0.3);
-    border-radius: 2px;
-    margin-top: 0.4rem;
-    overflow: hidden;
+.lp-general-error {
+    background: var(--coral-soft);
+    border: 1px solid rgba(239,71,111,.22);
+    color: var(--error);
+    border-radius: 14px;
+    padding: .85rem 1rem;
+    margin-bottom: 1.2rem;
 }
 
-.rp-strength-fill {
-    height: 100%;
-    border-radius: 2px;
-    transition: width 0.3s, background 0.3s;
-}
-
-.rp-strength-label {
-    font-size: 0.75rem;
-    font-weight: 500;
-    margin-top: 0.25rem;
-}
-
-/* SUBMIT BUTTON */
+/* BOTÓN */
 .btn-submit {
     width: 100%;
-    padding: 0.85rem;
-    background: var(--deep);
-    color: var(--sand);
+    height: 52px;
     border: none;
-    border-radius: 3px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 500;
-    letter-spacing: 0.05em;
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--coral), var(--coral-2));
+    color: white;
+    font-weight: 900;
+    letter-spacing: .06em;
     text-transform: uppercase;
     cursor: pointer;
-    margin-top: 0.5rem;
-    transition: background 0.2s, transform 0.2s;
+    margin-top: .6rem;
+    box-shadow: 0 14px 34px rgba(255,95,126,.28);
 }
 
-    .btn-submit:hover {
-        background: var(--accent);
+    .btn-submit:hover:not(:disabled) {
         transform: translateY(-2px);
     }
 
-/* SUCCESS */
-.rp-success {
+    .btn-submit:disabled {
+        opacity: .7;
+        cursor: not-allowed;
+    }
+
+.lp-forgot {
+    display: inline-block;
+    font-size: .82rem;
+    margin-top: .45rem;
+}
+
+.lp-register-cta {
     text-align: center;
-    padding: 2rem 0;
+    margin-top: 1.35rem;
 }
 
-.rp-success-icon {
-    font-size: 3rem;
-    margin-bottom: 1rem;
+.lp-spinner {
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    border: 2px solid rgba(255,255,255,.45);
+    border-top-color: white;
+    border-radius: 50%;
+    margin-right: 8px;
+    animation: lp-spin .8s linear infinite;
 }
 
-.rp-success h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.6rem;
-    color: var(--deep);
-    margin-bottom: 0.75rem;
+@keyframes lp-spin {
+    to {
+        transform: rotate(360deg);
+    }
 }
 
-.rp-success p {
-    font-size: 0.9rem;
-    color: #6b5a47;
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
-}
-
-/* RESPONSIVE */
-@media (max-width: 768px) {
-    .rp-wrapper {
-        flex-direction: column;
+@media (max-width: 850px) {
+    .lp-wrapper {
+        grid-template-columns: 1fr;
     }
 
-    .rp-left,
-    .rp-right {
-        width: 100%;
+    .lp-right {
+        min-height: 320px;
+        padding: 2rem;
     }
 
-    .rp-left {
-        min-height: 40vh;
+    .lp-left {
+        padding: 2rem 1rem;
     }
 }

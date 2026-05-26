@@ -7,48 +7,49 @@ export interface CityResult {
     name: string;
 }
 
-const BASE_URL = "https://countriesnow.space/api/v0.1";
+// Cambia esto por el puerto local real de tu backend de ASP.NET
+const ASP_API_BASE_URL = "https://localhost:7269/api/locations";
 
 export async function fetchStatesByCountry(countryName: string): Promise<StateResult[]> {
-    const res = await fetch(`${BASE_URL}/countries/states`, {
+    if (!countryName.trim()) return [];
+
+    const res = await fetch(`${ASP_API_BASE_URL}/states`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            country: countryName,
+            countryName: countryName, // Estructura que espera nuestro DTO de C#
         }),
     });
 
     if (!res.ok) {
-        throw new Error("Error consultando estados");
+        throw new Error("Error consultando estados desde el servidor ASP");
     }
 
-    const data = await res.json();
-
-    return data.data?.states ?? [];
+    return await res.json();
 }
 
 export async function fetchCitiesByState(
     countryName: string,
     stateName: string
 ): Promise<string[]> {
-    const res = await fetch(`${BASE_URL}/countries/state/cities`, {
+    if (!countryName.trim() || !stateName.trim()) return [];
+
+    const res = await fetch(`${ASP_API_BASE_URL}/cities`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            country: countryName,
-            state: stateName,
+            countryName: countryName,
+            stateName: stateName, // Estructura que espera nuestro DTO de C#
         }),
     });
 
     if (!res.ok) {
-        throw new Error("Error consultando ciudades");
+        throw new Error("Error consultando ciudades desde el servidor ASP");
     }
 
-    const data = await res.json();
-
-    return data.data ?? [];
+    return await res.json();
 }

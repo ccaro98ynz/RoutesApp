@@ -1,0 +1,75 @@
+/* ─── PANEL: CATEGORÍAS DE LUGARES ──────────────────────────────────
+   Clases nuevas, ninguna modifica SideBar.css existente.
+   ──────────────────────────────────────────────────────────────── */
+
+.place-categories-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.45rem;
+}
+
+.place-cat-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.55rem 0.75rem;
+    border: 1px solid rgba(196, 168, 130, 0.35);
+    border-radius: 6px;
+    background: transparent;
+    font-size: 0.8rem;
+    font-family: inherit;
+    color: #2c2723;
+    cursor: pointer;
+    transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+    text-align: left;
+    line-height: 1.2;
+    user-select: none;
+}
+
+    .place-cat-chip:hover {
+        border-color: #c4a882;
+        background: rgba(196, 168, 130, 0.08);
+    }
+
+    .place-cat-chip.active {
+        background: #2c2723;
+        border-color: #2c2723;
+        color: #f5ede0;
+    }
+
+.place-cat-emoji {
+    font-size: 1rem;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.place-cat-label {
+    font-size: 0.78rem;
+    font-weight: 500;
+}
+
+/* ─── ADVERTENCIA DE FECHAS ──────────────────────────────────────── */
+.date-warning {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 0.75rem;
+    background: rgba(224, 92, 42, 0.08);
+    border: 1px solid rgba(224, 92, 42, 0.25);
+    border-radius: 6px;
+    font-size: 0.78rem;
+    color: #c04a1a;
+    font-weight: 500;
+    margin-top: -0.25rem; /* acerca al bloque de fechas */
+}
+
+.date-warning-icon {
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+
+/* ─── INPUT DE FECHA CON ERROR ───────────────────────────────────── */
+.date-input--error {
+    border-color: rgba(224, 92, 42, 0.6) !important;
+    box-shadow: 0 0 0 3px rgba(224, 92, 42, 0.1) !important;
+}

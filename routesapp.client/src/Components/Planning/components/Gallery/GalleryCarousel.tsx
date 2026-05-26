@@ -18,7 +18,7 @@ function GalleryCarousel({ country, images, loading }: GalleryCarouselProps) {
     const stripRef = useRef<HTMLDivElement>(null);
     const parallax = useParallax(heroRef as React.RefObject<HTMLElement>);
 
-    const { currentIndex: activeIdx, next, previous: prev, goTo } = useAutoCarousel(images.length);
+    const { currentIndex: activeIdx, goTo } = useAutoCarousel(images.length);
 
     // Resetear al cambiar de país
     useEffect(() => {
@@ -26,12 +26,20 @@ function GalleryCarousel({ country, images, loading }: GalleryCarouselProps) {
         setPrevIdx(null);
     }, [country.cca2]);
 
-    // Scroll del strip al índice activo
     useEffect(() => {
         const track = stripRef.current;
         if (!track) return;
+
         const thumb = track.children[activeIdx] as HTMLElement;
-        thumb?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+        if (!thumb) return;
+
+        // Calculamos la posición para que la miniatura quede perfectamente centrada en su contenedor
+        const leftOffset = thumb.offsetLeft - (track.clientWidth / 2) + (thumb.clientWidth / 2);
+
+        track.scrollTo({
+            left: leftOffset,
+            behavior: "smooth"
+        });
     }, [activeIdx]);
 
     // Wrapper con transición para goTo manual
@@ -122,7 +130,6 @@ function GalleryCarousel({ country, images, loading }: GalleryCarouselProps) {
                     </p>
                     <div className="gallery-caption__meta">
                         {country.capital?.[0] && <span>📍 {country.capital[0]}</span>}
-                        <span>{country.region}</span>
                         <span>{(country.population / 1_000_000).toFixed(1)}M hab.</span>
                     </div>
                 </div>

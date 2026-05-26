@@ -57,7 +57,8 @@ const LoginPage = () => {
             }
             const data = await response.json();
             if (data.id) {
-                localStorage.setItem("customerId", data.id.toString());
+                localStorage.setItem("customerId", data.id);
+                localStorage.setItem("customerName", data.nombre);
             }
             navigate("/dashboard");
 

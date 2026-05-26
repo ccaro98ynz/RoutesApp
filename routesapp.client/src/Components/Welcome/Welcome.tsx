@@ -47,13 +47,13 @@ const WelcomePage = () => {
     ];
     return (
         <>
-            {/* NAVBAR */}
-            <nav>
-                <div className="wp-nav-logo">
-                    Ruta<span>Libre</span>
-                </div>
+            <nav className="wp-navbar">
+                <Link to="/" className="wp-nav-logo">
+                    Oma<span>we</span>
+                </Link>
+
                 <div className="wp-nav-actions">
-                    <Link to="/login" className="btn-login"> Iniciar sesión</Link>
+                    <Link to="/login" className="btn-login">Iniciar sesión</Link>
                     <Link to="/signup" className="btn-register">Registrarse</Link>
                 </div>
             </nav>
@@ -157,10 +157,9 @@ const WelcomePage = () => {
                         te <em>espera</em>
                     </h2>
                     <p>Crea una cuenta gratis y empieza a trazar tu camino hoy.</p>
-                    <button className="btn-register" style={{ fontSize: "0.95rem", padding: "0.85rem 2.5rem" }}
-                    >
-                        Crear cuenta gratis
-                    </button>
+                    <Link to="/signup" className="btn-cta">
+                        Empezar mi ruta
+                    </Link>
                 </div>
             </section>
 

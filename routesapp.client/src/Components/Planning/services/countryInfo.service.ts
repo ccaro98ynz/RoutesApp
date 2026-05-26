@@ -1,6 +1,6 @@
 import type { CountryResult } from "../types/planning.types";
 
-const REST_COUNTRIES_BASE_URL = "https://restcountries.com/v3.1";
+const ASP_API_BASE_URL = "https://localhost:7269/api/countries";
 
 export async function searchCountries(
     query: string
@@ -9,15 +9,18 @@ export async function searchCountries(
 
     if (!cleanQuery) return [];
 
-    const res = await fetch(
-        `${REST_COUNTRIES_BASE_URL}/name/${encodeURIComponent(
-            cleanQuery
-        )}?fields=name,cca2,flags,latlng,capital,population`
-    );
+    try {
+        const res = await fetch(
+            `${ASP_API_BASE_URL}/search?query=${encodeURIComponent(cleanQuery)}`
+        );
 
-    if (!res.ok) return [];
+        if (!res.ok) return [];
 
-    const data: CountryResult[] = await res.json();
-
-    return data.slice(0, 6);
+        const data: CountryResult[] = await res.json();
+        console.log(data);
+        return data;
+    } catch (error) {
+        console.error("Error al conectar con el servidor ASP:", error);
+        return [];
+    }
 }

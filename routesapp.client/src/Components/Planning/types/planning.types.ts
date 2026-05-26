@@ -5,8 +5,6 @@ export interface CountryResult {
     latlng: [number, number];
     capital?: string[];
     population: number;
-    region: string;
-    subregion?: string;
 }
 export interface CountryImage {
     id: string;

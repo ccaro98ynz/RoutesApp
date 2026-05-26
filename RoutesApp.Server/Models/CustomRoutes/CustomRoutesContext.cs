@@ -25,11 +25,13 @@ public partial class CustomRoutesContext : DbContext
 
     public virtual DbSet<Visited> Visiteds { get; set; }
 
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("Name=ConnectionStrings:dbContext");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        
         modelBuilder.Entity<Customer>(entity =>
         {
             entity.HasKey(e => e.IdCustomer).HasName("PK__Customer__8CC9BA468D0F4B29");

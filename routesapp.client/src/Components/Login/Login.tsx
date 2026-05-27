@@ -43,7 +43,7 @@ const LoginPage = () => {
         setErrors({}); 
 
         try {
-            const response = await fetch("https://localhost:7269/Customers/Login", {
+            const response = await fetch("/Customers/Login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

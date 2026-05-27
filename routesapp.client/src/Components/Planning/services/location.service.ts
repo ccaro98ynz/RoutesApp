@@ -8,7 +8,7 @@ export interface CityResult {
 }
 
 // Cambia esto por el puerto local real de tu backend de ASP.NET
-const ASP_API_BASE_URL = "https://localhost:7269/api/locations";
+const ASP_API_BASE_URL = "/api/locations";
 
 export async function fetchStatesByCountry(countryName: string): Promise<StateResult[]> {
     if (!countryName.trim()) return [];

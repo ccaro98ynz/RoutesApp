@@ -11,6 +11,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\assets\index-BYkCa5Zg.css" />
+    <Content Remove="wwwroot\assets\index-CSUw1k-L.js" />
+    <Content Remove="wwwroot\favicon.svg" />
+    <Content Remove="wwwroot\icons.svg" />
+    <Content Remove="wwwroot\index.html" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.SpaProxy">
@@ -29,6 +37,14 @@
     <ProjectReference Include="..\routesapp.client\routesapp.client.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\assets\index-BYkCa5Zg.css" />
+    <None Include="wwwroot\assets\index-CSUw1k-L.js" />
+    <None Include="wwwroot\favicon.svg" />
+    <None Include="wwwroot\icons.svg" />
+    <None Include="wwwroot\index.html" />
   </ItemGroup>
 
 </Project>

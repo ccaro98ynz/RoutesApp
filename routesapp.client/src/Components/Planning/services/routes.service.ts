@@ -1,6 +1,6 @@
 import type { OverpassPlace } from "./place.service";
 
-const ASP_API_BASE_URL = "https://localhost:7269/api/routes";
+const ASP_API_BASE_URL = "/api/routes";
 
 export interface CreateRouteDTO {
     idCustomer: number;

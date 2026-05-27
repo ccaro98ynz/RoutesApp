@@ -42,7 +42,7 @@ public class CustomersController : Controller
         }
         catch (Exception ex)
         {
-            return StatusCode(500, $"An error occurred: {ex.Message}");
+            return StatusCode(500, ex.Message.ToString());
         }
     }
     // Iniciar Sesión

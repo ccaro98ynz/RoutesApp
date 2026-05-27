@@ -1,4 +1,4 @@
-const API_BASE_URL = "https://localhost:7269/api/routes";
+const API_BASE_URL = "/api/routes";
 
 export interface DashboardPlace {
     idPlace: number;
@@ -32,7 +32,7 @@ export async function removePlaceFromRoute(
     placeId: number
 ): Promise<void> {
     const res = await fetch(
-        `https://localhost:7269/api/routes/${routeId}/places/${placeId}`,
+        `${API_BASE_URL}/${routeId}/places/${placeId}`,
         {
             method: "DELETE",
         }

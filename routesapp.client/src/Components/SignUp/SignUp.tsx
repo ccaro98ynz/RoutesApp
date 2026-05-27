@@ -56,7 +56,7 @@ const SignUpPage = () => {
         if (!validate()) return;
 
         try {
-            const response = await fetch("https://localhost:7269/Customers/Register", {
+            const response = await fetch("/Customers/Register", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

@@ -19,62 +19,71 @@ public class RoutesController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateRouteDTO dto)
     {
-        await using var transaction = await _context.Database.BeginTransactionAsync();
-
-        var route = new Models.CustomRoutes.Route
+        try
         {
-            IdCustomer = dto.IdCustomer,
-            StartDate = dto.StartDate,
-            EndDate = dto.EndDate,
-            TravelerType = dto.TravelerType,
-            TotalGuests = dto.TotalGuests
-        };
+            await using var transaction = await _context.Database.BeginTransactionAsync();
 
-        _context.Routes.Add(route);
-        await _context.SaveChangesAsync();
+            var route = new Models.CustomRoutes.Route
+            {
+                IdCustomer = dto.IdCustomer,
+                StartDate = dto.StartDate,
+                EndDate = dto.EndDate,
+                TravelerType = dto.TravelerType,
+                TotalGuests = dto.TotalGuests
+            };
 
-        foreach (var interestId in dto.InterestIds)
-        {
-            await _context.Database.ExecuteSqlInterpolatedAsync($@"
+            _context.Routes.Add(route);
+            await _context.SaveChangesAsync();
+
+            foreach (var interestId in dto.InterestIds)
+            {
+                await _context.Database.ExecuteSqlInterpolatedAsync($@"
                 INSERT INTO Specifications (id_route, id_interests)
                 VALUES ({route.IdRoute}, {interestId})
             ");
-        }
-
-        foreach (var placeDto in dto.Places)
-        {
-            var place = await _context.Places
-                .FirstOrDefaultAsync(p => p.IdExternal == placeDto.IdExternal);
-
-            if (place == null)
-            {
-                place = new Place
-                {
-                    IdExternal = placeDto.IdExternal,
-                    Latitude = placeDto.Latitude,
-                    Longitude = placeDto.Longitude,
-                    AddressLine = placeDto.AddressLine,
-                    City = placeDto.City,
-                    PostalCode = placeDto.PostalCode,
-                    CountryCode = placeDto.CountryCode
-                };
-
-                _context.Places.Add(place);
-                await _context.SaveChangesAsync();
             }
 
-            _context.Visiteds.Add(new Visited
+            foreach (var placeDto in dto.Places)
             {
-                IdRoute = route.IdRoute,
-                IdPlace = place.IdPlace,
-                VisitedAt = DateTime.Now
-            });
+                var place = await _context.Places
+                    .FirstOrDefaultAsync(p => p.IdExternal == placeDto.IdExternal);
+
+                if (place == null)
+                {
+                    place = new Place
+                    {
+                        IdExternal = placeDto.IdExternal,
+                        Latitude = placeDto.Latitude,
+                        Longitude = placeDto.Longitude,
+                        AddressLine = placeDto.AddressLine,
+                        City = placeDto.City,
+                        PostalCode = placeDto.PostalCode,
+                        CountryCode = placeDto.CountryCode
+                    };
+
+                    _context.Places.Add(place);
+                    await _context.SaveChangesAsync();
+                }
+
+                _context.Visiteds.Add(new Visited
+                {
+                    IdRoute = route.IdRoute,
+                    IdPlace = place.IdPlace,
+                    VisitedAt = DateTime.Now
+                });
+            }
+
+            await _context.SaveChangesAsync();
+            await transaction.CommitAsync();
+
+            return Ok(new { routeId = route.IdRoute });
         }
+        catch (Exception ex)
+        {
 
-        await _context.SaveChangesAsync();
-        await transaction.CommitAsync();
-
-        return Ok(new { routeId = route.IdRoute });
+            return StatusCode(500, ex.ToString());
+        }
+        
     }
     [HttpGet("customer/{customerId}")]
     public async Task<IActionResult> GetRoutesByCustomer(int customerId)

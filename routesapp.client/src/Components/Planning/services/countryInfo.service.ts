@@ -1,6 +1,6 @@
 import type { CountryResult } from "../types/planning.types";
 
-const ASP_API_BASE_URL = "https://localhost:7269/api/countries";
+const ASP_API_BASE_URL = "/api/countries";
 
 export async function searchCountries(
     query: string
